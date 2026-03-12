@@ -872,7 +872,7 @@
       </div>
       <div class="skill-tags">
         <span class="stag stag-blue">GCP</span>
-        <span class="stag stag-amber">AWS <span class="stag-badge">Certified SAA</span></span>
+        <span class="stag stag-amber">AWS</span>
         <span class="stag stag-teal">Docker</span>
         <span class="stag stag-teal">Kubernetes</span>
         <span class="stag stag-teal">CI/CD</span>
@@ -1131,4 +1131,10 @@ window.addEventListener('scroll',()=>{
 /* ── EXP TOGGLE ── */
 function toggleExp(btn){
   const d=btn.nextElementSibling,o=d.classList.contains('open');
-  d.classList.toggle('open',!o);btn.classList.toggle('op
+  d.classList.toggle('open',!o);btn.classList.toggle('open',!o);
+  const txt=btn.childNodes[btn.childNodes.length-1];
+  if(txt&&txt.nodeType===3)txt.textContent=o?' Show details':' Hide details';
+}
+</script>
+</body>
+</html>
