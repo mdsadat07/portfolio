@@ -381,28 +381,104 @@
 
     /* ── SKILLS ── */
     #skills { background: var(--surface); }
-    .skills-layout { display:grid; grid-template-columns:1fr 1fr; gap:1.8rem; }
-    .skill-category {
+    .skills-stack { display:flex; flex-direction:column; gap:1.4rem; }
+    .skill-group {
       background:var(--surface2); border:1px solid var(--border);
-      border-radius:10px; padding:1.8rem;
-      transition:border-color .2s, background .35s;
+      border-radius:12px; padding:1.8rem 2rem;
+      transition:border-color .25s, box-shadow .25s;
     }
-    .skill-category:hover{border-color:rgba(59,130,246,.28)}
-    .skill-cat-title {
-      font-family:'Inter',sans-serif; font-size:.9rem; font-weight:600;
-      color:var(--text); margin-bottom:1.3rem;
-      display:flex; align-items:center; gap:.65rem;
+    .skill-group:hover { border-color:rgba(59,130,246,.3); box-shadow:0 8px 32px var(--shadow); }
+    .skill-group-header {
+      display:flex; align-items:flex-start; gap:1rem;
+      margin-bottom:1.3rem; padding-bottom:1.1rem;
+      border-bottom:1px solid var(--border);
     }
-    .skill-icon {
-      width:30px; height:30px;
-      background:rgba(59,130,246,.12); border-radius:6px;
-      display:flex; justify-content:center; align-items:center; font-size:.85rem;
+    .skill-group-icon {
+      width:38px; height:38px; flex-shrink:0;
+      background:rgba(59,130,246,.1); border-radius:8px;
+      display:flex; justify-content:center; align-items:center; font-size:1.1rem;
     }
-    .skill-bars{display:flex;flex-direction:column;gap:.85rem}
-    .skill-bar-top { display:flex; justify-content:space-between; font-size:.7rem; color:var(--muted); margin-bottom:.3rem; font-weight:400; }
-    .skill-bar-pct{color:var(--accent);font-weight:600}
-    .skill-bar-track{height:4px;background:rgba(59,130,246,.1);border-radius:4px;overflow:hidden}
-    .skill-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--accent),var(--accent3));width:0;transition:width 1.1s cubic-bezier(.4,0,.2,1)}
+    .skill-group-title {
+      font-size:.95rem; font-weight:600; color:var(--text);
+      line-height:1.3; margin-bottom:.2rem;
+    }
+    .skill-group-sub {
+      font-size:.72rem; color:var(--muted); font-weight:400;
+    }
+    .skill-tags { display:flex; flex-wrap:wrap; gap:.55rem; }
+    .stag {
+      display:inline-flex; align-items:center; gap:.4rem;
+      padding:.38rem .85rem;
+      border-radius:40px; font-size:.75rem; font-weight:500;
+      border:1px solid transparent;
+      transition:transform .18s, box-shadow .18s;
+      cursor:default; white-space:nowrap;
+    }
+    .stag:hover { transform:translateY(-2px); box-shadow:0 4px 12px var(--shadow); }
+    .stag-blue  { background:rgba(59,130,246,.12); color:#3b82f6; border-color:rgba(59,130,246,.22); }
+    .stag-green { background:rgba(16,185,129,.1);  color:#10b981; border-color:rgba(16,185,129,.2); }
+    .stag-purple{ background:rgba(139,92,246,.1);  color:#a78bfa; border-color:rgba(139,92,246,.2); }
+    .stag-amber { background:rgba(245,158,11,.1);  color:#f59e0b; border-color:rgba(245,158,11,.2); }
+    .stag-teal  { background:rgba(20,184,166,.1);  color:#2dd4bf; border-color:rgba(20,184,166,.2); }
+    .stag-red   { background:rgba(239,68,68,.1);   color:#f87171; border-color:rgba(239,68,68,.2); }
+    [data-theme="light"] .stag-blue  { color:#1d4ed8; border-color:rgba(29,78,216,.25); }
+    [data-theme="light"] .stag-green { color:#059669; border-color:rgba(5,150,105,.25); }
+    [data-theme="light"] .stag-purple{ color:#7c3aed; border-color:rgba(124,58,237,.25); }
+    [data-theme="light"] .stag-amber { color:#b45309; border-color:rgba(180,83,9,.25); }
+    [data-theme="light"] .stag-teal  { color:#0d9488; border-color:rgba(13,148,136,.25); }
+    [data-theme="light"] .stag-red   { color:#dc2626; border-color:rgba(220,38,38,.25); }
+    .stag-badge {
+      display:inline-block;
+      background:rgba(245,158,11,.25); color:#f59e0b;
+      font-size:.6rem; font-weight:700; letter-spacing:.06em;
+      padding:.1rem .45rem; border-radius:40px;
+      text-transform:uppercase;
+    }
+    [data-theme="light"] .stag-badge { color:#b45309; background:rgba(180,83,9,.12); }
+
+    /* ── EDUCATION ── */
+    #education { background: var(--surface); }
+    .edu-grid { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-bottom:0; }
+    .edu-card {
+      background:var(--surface2); border:1px solid var(--border);
+      border-radius:10px; padding:2rem;
+      transition:border-color .25s, transform .25s, box-shadow .25s;
+      position:relative; overflow:hidden;
+    }
+    .edu-card::after {
+      content:''; position:absolute; top:0; left:0; right:0; height:3px;
+      background:linear-gradient(90deg,var(--accent),var(--accent3));
+      transform:scaleX(0); transform-origin:left; transition:transform .35s;
+    }
+    .edu-card:hover { border-color:rgba(59,130,246,.35); transform:translateY(-4px); box-shadow:0 14px 40px var(--shadow); }
+    .edu-card:hover::after { transform:scaleX(1); }
+    .edu-degree {
+      font-family:'Merriweather',serif; font-size:1rem; font-weight:700;
+      color:var(--text); line-height:1.4; margin-bottom:.5rem;
+    }
+    .edu-school {
+      font-size:.82rem; font-weight:600; color:var(--accent);
+      margin-bottom:.25rem;
+    }
+    .edu-meta {
+      display:flex; align-items:center; gap:.6rem; flex-wrap:wrap;
+      margin-top:.7rem;
+    }
+    .edu-date {
+      font-size:.65rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase;
+      color:var(--muted); background:rgba(59,130,246,.08);
+      padding:.25rem .7rem; border-radius:40px;
+    }
+    .edu-location {
+      font-size:.72rem; color:var(--muted);
+    }
+    .edu-icon {
+      width:44px; height:44px; flex-shrink:0;
+      background:rgba(59,130,246,.1); border:1px solid rgba(59,130,246,.2);
+      border-radius:10px;
+      display:flex; justify-content:center; align-items:center;
+      font-size:1.2rem; margin-bottom:1.1rem;
+    }
 
     /* ── CERTIFICATIONS ── */
     #certifications { background: var(--bg); }
@@ -491,7 +567,7 @@
       section{padding:100px 1.5rem 60px}
       #hero{padding-top:80px}
       .hero-deco{display:none}
-      .about-grid,.skills-layout,.certs-grid,.contact-grid,.awards-row{grid-template-columns:1fr}
+      .about-grid,.skills-layout,.edu-grid,.certs-grid,.contact-grid,.awards-row{grid-template-columns:1fr}
       footer{flex-direction:column;gap:.5rem;text-align:center}
     }
   </style>
@@ -510,6 +586,7 @@
       <li><a href="#about">About</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#skills">Skills</a></li>
+      <li><a href="#education">Education</a></li>
       <li><a href="#certifications">Certifications</a></li>
     </ul>
   </div>
@@ -544,14 +621,18 @@
       <div class="hero-stat-label">Years Experience</div>
     </div>
     <div>
-      <div class="hero-stat-num">$<span class="counter" data-target="70+">0</span>M+</div>
+      <div class="hero-stat-num">$<span class="counter" data-target="70">0</span>M+</div>
       <div class="hero-stat-label">Portfolio Managed</div>
     </div>
     <div>
-      <div class="hero-stat-num"><span class="counter" data-target="4">0</span></div>
+      <div class="hero-stat-num"><span class="counter" data-target="8">0</span>+</div>
       <div class="hero-stat-label">Certifications</div>
     </div>
+    <div>
+      <div class="hero-stat-num"><span class="counter" data-target="2">0</span></div>
+      <div class="hero-stat-label">Degrees Earned</div>
     </div>
+  </div>
 
   <div class="hero-deco">
     <div class="code-block">
@@ -572,7 +653,7 @@
     <div class="floating-chips">
       <div class="chip"><div class="chip-dot"></div>CBAP Certified</div>
       <div class="chip"><div class="chip-dot"></div>CSM + CSPO</div>
-      <div class="chip"><div class="chip-dot"></div>Computer Programming</div>
+      <div class="chip"><div class="chip-dot"></div>Algonquin College · U of Saskatchewan</div>
     </div>
   </div>
 </section>
@@ -585,7 +666,7 @@
     <div class="about-text reveal">
       <p>I'm a <strong>QA professional and project assistant</strong> who combines strong organizational awareness, stakeholder engagement, and technical expertise to deliver reliable enterprise solutions.</p>
       <p>At <strong>Public Services and Procurement Canada</strong>, I execute manual and cloud-based testing for enterprise HR and pay systems, build Power BI dashboards for operational insights, and create Power Automate workflows that streamline daily processes.</p>
-      <p>I completed my <strong>Advanced Diploma in Computer Programming</strong> at Algonquin College in just 16 months — a 2-year program — demonstrating the same adaptability and drive I bring to every project.</p>
+      <p>I hold an <strong>Advanced Diploma in Computer Programming</strong> from Algonquin College and a <strong>Master of Sustainable Environmental Management</strong> from the University of Saskatchewan — a multidisciplinary foundation I pair with hands-on technical expertise.</p>
     </div>
     <div class="about-cards reveal">
       <div class="about-card">
@@ -597,8 +678,12 @@
         <div class="about-card-label">Portfolio reported</div>
       </div>
       <div class="about-card">
-        <div class="about-card-num"><span class="counter" data-target="4">0</span></div>
-        <div class="about-card-label">Professional Certifications</div>
+        <div class="about-card-num"><span class="counter" data-target="8">0</span></div>
+        <div class="about-card-label">Certifications</div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-num"><span class="counter" data-target="2">0</span></div>
+        <div class="about-card-label">Degrees earned</div>
       </div>
     </div>
   </div>
@@ -730,39 +815,121 @@
 <section id="skills">
   <div class="s-label reveal">Capabilities</div>
   <h2 class="reveal">Skills &amp; <em>Tools</em></h2>
-  <div class="skills-layout">
-    <div class="skill-category reveal">
-      <div class="skill-cat-title"><div class="skill-icon">🧪</div>Testing &amp; QA</div>
-      <div class="skill-bars">
-        <div><div class="skill-bar-top"><span>Manual &amp; Cloud Testing</span><span class="skill-bar-pct">95%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="95"></div></div></div>
-        <div><div class="skill-bar-top"><span>Test Case Development</span><span class="skill-bar-pct">92%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="92"></div></div></div>
-        <div><div class="skill-bar-top"><span>Defect Tracking (Jira)</span><span class="skill-bar-pct">90%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="90"></div></div></div>
-        <div><div class="skill-bar-top"><span>UAT &amp; Regression</span><span class="skill-bar-pct">88%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="88"></div></div></div>
+  <div class="skills-stack">
+
+    <div class="skill-group reveal">
+      <div class="skill-group-header">
+        <div class="skill-group-icon">💻</div>
+        <div>
+          <div class="skill-group-title">Technologies &amp; Frameworks</div>
+          <div class="skill-group-sub">Languages, libraries &amp; front-to-back stack</div>
+        </div>
+      </div>
+      <div class="skill-tags">
+        <span class="stag stag-blue">JavaScript</span>
+        <span class="stag stag-blue">React</span>
+        <span class="stag stag-blue">Vue.js</span>
+        <span class="stag stag-blue">Node.js</span>
+        <span class="stag stag-blue">Next.js</span>
+        <span class="stag stag-green">Python</span>
+        <span class="stag stag-green">Django</span>
+        <span class="stag stag-green">Flask</span>
+        <span class="stag stag-green">PyTorch</span>
+        <span class="stag stag-green">TensorFlow</span>
+        <span class="stag stag-purple">PHP</span>
+        <span class="stag stag-purple">Laravel</span>
+        <span class="stag stag-amber">Java</span>
+        <span class="stag stag-teal">Tailwind CSS</span>
+        <span class="stag stag-teal">D3.js</span>
       </div>
     </div>
-    <div class="skill-category reveal">
-      <div class="skill-cat-title"><div class="skill-icon">⚡</div>Microsoft Power Platform</div>
-      <div class="skill-bars">
-        <div><div class="skill-bar-top"><span>Power BI</span><span class="skill-bar-pct">90%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="90"></div></div></div>
-        <div><div class="skill-bar-top"><span>Power Automate</span><span class="skill-bar-pct">87%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="87"></div></div></div>
-        <div><div class="skill-bar-top"><span>Power Apps</span><span class="skill-bar-pct">82%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="82"></div></div></div>
-        <div><div class="skill-bar-top"><span>Azure DevOps</span><span class="skill-bar-pct">85%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="85"></div></div></div>
+
+    <div class="skill-group reveal">
+      <div class="skill-group-header">
+        <div class="skill-group-icon">🗄️</div>
+        <div>
+          <div class="skill-group-title">Databases</div>
+          <div class="skill-group-sub">Relational, NoSQL &amp; cloud-native</div>
+        </div>
+      </div>
+      <div class="skill-tags">
+        <span class="stag stag-blue">PostgreSQL</span>
+        <span class="stag stag-blue">MySQL</span>
+        <span class="stag stag-green">MongoDB</span>
+        <span class="stag stag-amber">BigQuery</span>
+        <span class="stag stag-amber">Firebase</span>
+        <span class="stag stag-red">Redis</span>
       </div>
     </div>
-    <div class="skill-category reveal">
-      <div class="skill-cat-title"><div class="skill-icon">📊</div>Analysis &amp; Reporting</div>
-      <div class="skill-bars">
-        <div><div class="skill-bar-top"><span>Business Analysis</span><span class="skill-bar-pct">93%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="93"></div></div></div>
-        <div><div class="skill-bar-top"><span>Risk &amp; Financial Analysis</span><span class="skill-bar-pct">85%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="85"></div></div></div>
-        <div><div class="skill-bar-top"><span>Dashboard Reporting</span><span class="skill-bar-pct">90%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="90"></div></div></div>
+
+    <div class="skill-group reveal">
+      <div class="skill-group-header">
+        <div class="skill-group-icon">☁️</div>
+        <div>
+          <div class="skill-group-title">Cloud / DevOps / Tools</div>
+          <div class="skill-group-sub">Infrastructure, CI/CD &amp; deployment</div>
+        </div>
+      </div>
+      <div class="skill-tags">
+        <span class="stag stag-blue">GCP</span>
+        <span class="stag stag-amber">AWS <span class="stag-badge">Certified SAA</span></span>
+        <span class="stag stag-teal">Docker</span>
+        <span class="stag stag-teal">Kubernetes</span>
+        <span class="stag stag-teal">CI/CD</span>
+        <span class="stag stag-purple">Microservices</span>
+        <span class="stag stag-purple">Git</span>
+        <span class="stag stag-green">Jest</span>
+        <span class="stag stag-blue">DigitalOcean</span>
       </div>
     </div>
-    <div class="skill-category reveal">
-      <div class="skill-cat-title"><div class="skill-icon">🔄</div>Agile &amp; Project Mgmt</div>
-      <div class="skill-bars">
-        <div><div class="skill-bar-top"><span>Scrum / Agile Delivery</span><span class="skill-bar-pct">92%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="92"></div></div></div>
-        <div><div class="skill-bar-top"><span>Stakeholder Engagement</span><span class="skill-bar-pct">95%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="95"></div></div></div>
-        <div><div class="skill-bar-top"><span>Governance Documentation</span><span class="skill-bar-pct">88%</span></div><div class="skill-bar-track"><div class="skill-bar-fill" data-width="88"></div></div></div>
+
+    <div class="skill-group reveal">
+      <div class="skill-group-header">
+        <div class="skill-group-icon">📊</div>
+        <div>
+          <div class="skill-group-title">QA, Analytics &amp; Project Delivery</div>
+          <div class="skill-group-sub">Testing, reporting &amp; Agile methodologies</div>
+        </div>
+      </div>
+      <div class="skill-tags">
+        <span class="stag stag-teal">Manual Testing</span>
+        <span class="stag stag-teal">UAT</span>
+        <span class="stag stag-teal">Jira</span>
+        <span class="stag stag-blue">Power BI</span>
+        <span class="stag stag-blue">Power Automate</span>
+        <span class="stag stag-blue">Power Apps</span>
+        <span class="stag stag-blue">Azure DevOps</span>
+        <span class="stag stag-purple">Scrum</span>
+        <span class="stag stag-purple">Agile</span>
+        <span class="stag stag-amber">Salesforce</span>
+        <span class="stag stag-amber">Guidewire</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ EDUCATION ═══ -->
+<section id="education">
+  <div class="s-label reveal">Academic background</div>
+  <h2 class="reveal">Education &amp; <em>Degrees</em></h2>
+  <div class="edu-grid">
+    <div class="edu-card reveal">
+      <div class="edu-icon">🎓</div>
+      <div class="edu-degree">Advanced Diploma in Computer Programming</div>
+      <div class="edu-school">Algonquin College</div>
+      <div class="edu-meta">
+        <span class="edu-date">May 2025</span>
+        <span class="edu-location">Ottawa, Ontario</span>
+      </div>
+    </div>
+    <div class="edu-card reveal">
+      <div class="edu-icon">🎓</div>
+      <div class="edu-degree">Master of Sustainable Environmental Management</div>
+      <div class="edu-school">University of Saskatchewan</div>
+      <div class="edu-meta">
+        <span class="edu-date">August 2020</span>
+        <span class="edu-location">Saskatoon, Saskatchewan</span>
       </div>
     </div>
   </div>
@@ -772,24 +939,45 @@
 <section id="certifications">
   <div class="s-label reveal">Credentials</div>
   <h2 class="reveal">Certifications &amp; <em>Awards</em></h2>
-  <div class="certs-grid">
-    <div class="cert-card reveal">
-      <div class="cert-badge">BA</div>
-      <div><div class="cert-name">Certified Business Analysis Professional (CBAP)</div><div class="cert-issuer">Starweaver</div></div>
-    </div>
-    <div class="cert-card reveal">
-      <div class="cert-badge">BA</div>
-      <div><div class="cert-name">Business Analyst Essentials</div><div class="cert-issuer">McMaster University Continuing Education</div></div>
-    </div>
-    <div class="cert-card reveal">
-      <div class="cert-badge">PO</div>
-      <div><div class="cert-name">Certified Scrum Product Owner (CSPO)</div><div class="cert-issuer">Scrum Alliance</div></div>
-    </div>
-    <div class="cert-card reveal">
-      <div class="cert-badge">SM</div>
-      <div><div class="cert-name">Certified ScrumMaster (CSM)</div><div class="cert-issuer">Scrum Alliance</div></div>
+
+  <div style="margin-bottom:1rem" class="reveal">
+    <div style="font-family:'Merriweather',serif;font-size:.8rem;font-weight:700;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:1.1rem;padding-bottom:.6rem;border-bottom:1px solid var(--border);">Professional Certifications</div>
+    <div class="certs-grid">
+      <div class="cert-card">
+        <div class="cert-badge">BA</div>
+        <div><div class="cert-name">Certified Business Analysis Professional™ (CBAP®)</div><div class="cert-issuer">Starweaver</div></div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-badge">BA</div>
+        <div><div class="cert-name">Business Analyst Essentials</div><div class="cert-issuer">McMaster University Continuing Education</div></div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-badge">PO</div>
+        <div><div class="cert-name">Certified Scrum Product Owner (CSPO)</div><div class="cert-issuer">Scrum Alliance</div></div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-badge">SM</div>
+        <div><div class="cert-name">Certified ScrumMaster® (CSM)</div><div class="cert-issuer">Scrum Alliance</div></div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-badge" style="font-size:.65rem">NET</div>
+        <div><div class="cert-name">Connect and Protect: Networks and Network Security</div><div class="cert-issuer">Google</div></div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-badge" style="font-size:.65rem">SEC</div>
+        <div><div class="cert-name">Play It Safe: Manage Security Risks</div><div class="cert-issuer">Google</div></div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-badge" style="font-size:.65rem">CYB</div>
+        <div><div class="cert-name">Foundations of Cybersecurity</div><div class="cert-issuer">Google</div></div>
+      </div>
+      <div class="cert-card">
+        <div class="cert-badge" style="font-size:.65rem">DS</div>
+        <div><div class="cert-name">What is Data Science?</div><div class="cert-issuer">IBM</div></div>
+      </div>
     </div>
   </div>
+
   <div class="awards-row reveal">
     <div class="award-card">
       <div class="award-icon">🏆</div>
@@ -817,9 +1005,9 @@
       <p class="contact-sub">Open to new opportunities, collaborations, and conversations about QA, business analysis, and enterprise technology.</p>
     </div>
     <div class="contact-links reveal">
-      <a href="mailto:md.sadat07@gmail.com" class="contact-link">
+      <a href="/cdn-cgi/l/email-protection#bcd1d892cfddd8ddc88c8bfcdbd1ddd5d092dfd3d1" class="contact-link">
         <div class="contact-link-icon">✉</div>
-        <div><span class="contact-link-lbl">Email</span><span class="contact-link-val">md.sadat07@gmail.com</span></div>
+        <div><span class="contact-link-lbl">Email</span><span class="contact-link-val"><span class="__cf_email__" data-cfemail="b4d9d09ac7d5d0d5c08483f4d3d9d5ddd89ad7dbd9">[email&#160;protected]</span></span></div>
       </a>
       <a href="https://www.linkedin.com/in/sultan-munir-muhammad-sadat" target="_blank" rel="noopener" class="contact-link">
         <div class="contact-link-icon" style="font-weight:700;font-size:.85rem;color:var(--accent)">in</div>
@@ -848,7 +1036,7 @@
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ── THEME TOGGLE ── */
 const html = document.documentElement;
 const toggleBtn = document.getElementById('theme-toggle');
@@ -929,10 +1117,6 @@ document.querySelectorAll('.counter').forEach(el=>cObs.observe(el));
 const rObs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');rObs.unobserve(e.target);}}),{threshold:.08});
 document.querySelectorAll('.reveal').forEach(el=>rObs.observe(el));
 
-/* ── SKILL BARS ── */
-const bObs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll('.skill-bar-fill').forEach(b=>setTimeout(()=>b.style.width=b.dataset.width+'%',120));bObs.unobserve(e.target);}}),{threshold:.2});
-document.querySelectorAll('.skill-category').forEach(el=>bObs.observe(el));
-
 /* ── ACTIVE NAV ── */
 const secs=document.querySelectorAll('section[id]');
 const nls=document.querySelectorAll('.nav-links a');
@@ -947,9 +1131,4 @@ window.addEventListener('scroll',()=>{
 /* ── EXP TOGGLE ── */
 function toggleExp(btn){
   const d=btn.nextElementSibling,o=d.classList.contains('open');
-  d.classList.toggle('open',!o);btn.classList.toggle('open',!o);
-  btn.innerHTML=`<svg width="10" height="10" viewBox="0 0 10 10"><path d="M3 2l4 3-4 3" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/></svg>${o?'Show details':'Hide details'}`;
-}
-</script>
-</body>
-</html>
+  d.classList.toggle('open',!o);btn.classList.toggle('op
